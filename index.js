@@ -16,7 +16,7 @@ const app = express();
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        "https://YOUR-FRONTEND.vercel.app"
+        "https://recrutx-f.vercel.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"]
@@ -38,6 +38,7 @@ app.use("/api", AdminRoute);
 app.use("/api", recruiterRoute);
 app.use("/api", seekerRoute);
 
+
 // Global error handler
 app.use((err, req, res, next) => {
     console.error("GLOBAL ERROR:", err);
@@ -46,6 +47,11 @@ app.use((err, req, res, next) => {
         message: err.message || "Internal Server Error"
     });
 });
-
+app.get("/", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "RecruitX Backend is Running Successfully"
+    });
+});
 // Export Express app for Vercel
 module.exports = app;
